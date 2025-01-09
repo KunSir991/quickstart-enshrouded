@@ -35,5 +35,4 @@ ImageBuilder:
     Timeout: 10800
     Tags: [ ]
     CommandContent: |-
-      #!/bin/bash
       Start-Process "C:\Program Files\EnshroudedServer\steam\steamcmd.exe" -ArgumentList "+login anonymous +app_update 2278520 validate +quit" -Wait
