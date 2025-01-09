@@ -1,0 +1,39 @@
+Service:
+  RegionId: cn-hangzhou
+  DeployType: ros
+  DeployMetadata:
+    ServiceInstanceNameRule:
+      Prefix: enshrouded
+    SupplierDeployMetadata:
+      ArtifactRelation:
+        'windows':
+          ArtifactId: ${Artifact.EcsImage.ArtifactId}
+          ArtifactVersion: ${Artifact.EcsImage.ArtifactVersion}
+    TemplateConfigs:
+      - Name: 单机版
+        Url: 'ros_templates/template.yaml'
+  ServiceType: private
+  ServiceInfo:
+    Locale: zh-CN
+    ShortDescription: halo deploy
+    Image: 'resources/icons/service_logo.png'
+Artifact:
+  EcsImage:
+    ArtifactType: EcsImage
+    ArtifactName: wusuo
+    Description: enshrouded
+    ArtifactProperty:
+      RegionId: ${ImageBuilder.EcsImage.RegionId}
+      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
+ImageBuilder:
+  EcsImage:
+    RegionId: ap-southeast-1
+    SourceImageId: m-t4n41v6a8oh4g5fe7p77
+    InstanceType: ecs.c6.large
+    InternetMaxBandwidthOut: 10
+    CommandType: RunPowerShellScript
+    Timeout: 10800
+    Tags: [ ]
+    CommandContent: |-
+      #!/bin/bash
+      Start-Process "C:\Program Files\EnshroudedServer\steam\steamcmd.exe" -ArgumentList "+login anonymous +app_update 2278520 validate +quit" -Wait
